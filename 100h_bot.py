@@ -1,4 +1,5 @@
 import discord
+from discord.ext import commands
 import os
 from dotenv import load_dotenv
 
@@ -10,16 +11,31 @@ intents = discord.Intents.default()
 intents.typing = False
 intents.presences = False
 
-client = discord.Client(intents = intents) # this client will represent our 100h bot
+bot = commands.Bot(command_prefix = '.', intents=intents)
 
-@client.event
+@bot.event
 async def on_ready():
-    for guild in client.guilds:
+    for guild in bot.guilds:
         if guild.name == GUILD:
             break
-    
-    print(f'{client.user} is connected to: {guild.name}')
 
+    print(f'{bot.user} is connected to: {guild.name}')
 
+# @bot.event
+# async def on_member_join(member):
+#     await member.create_dm()
+#     await member.dm_channel.send(f'Ni Hao {member.name}! Welcome to 100h community.')
 
-client.run(TOKEN)
+# @bot.command()
+# async def hello(ctx):
+#     await ctx.send(f'Hello, {ctx.author.mention}!')
+
+@bot.command()
+async def poll(ctx, *, message):
+    emb = discord.Embed(title="POLL", description=message)
+    print("Nice")
+    msg = await ctx.channel.send(embed=emb)
+    await msg.add_reaction('✔️')
+    await msg.add_reaction('❌')
+
+bot.run(TOKEN)
