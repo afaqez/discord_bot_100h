@@ -21,14 +21,14 @@ async def on_ready():
 
     print(f'{bot.user} is connected to: {guild.name}')
 
-# @bot.event
-# async def on_member_join(member):
-#     await member.create_dm()
-#     await member.dm_channel.send(f'Ni Hao {member.name}! Welcome to 100h community.')
+@bot.event
+async def on_member_join(member):
+    await member.create_dm()
+    await member.dm_channel.send(f'Ni Hao {member.name}! Welcome to 100h community.')
 
-# @bot.command()
-# async def hello(ctx):
-#     await ctx.send(f'Hello, {ctx.author.mention}!')
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Hello, {ctx.author.mention}!')
 
 @bot.command()
 async def poll(ctx, *, message):
